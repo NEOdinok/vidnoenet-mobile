@@ -18,17 +18,17 @@ const HomeCard = () => {
 				android_ripple={{color: '#ccc'}}
 			>
 				<View style={styles.innerContainer}>
-					<Text style={[styles.cardText, styles.cardSmallHeader]}>Баланс на счете:</Text>
-					<Text style={[styles.cardText, styles.balance]}>450 ₽</Text>
+					<Text style={[ styles.headerText ]}>Баланс на счете:</Text>
+					<Text style={[styles.text, styles.balanceText]}>450 ₽</Text>
 
 					<View style={[styles.rateDataContainer]}>
 						<View>
-							<Text style={[styles.cardText, styles.cardSmallHeader]}>Тариф:</Text>
-							<Text style={[styles.cardText]}>'Сотрудник'</Text>
+							<Text style={[ styles.headerText ]}>Тариф:</Text>
+							<Text style={[ styles.text]}>'Сотрудник'</Text>
 						</View>
 						<View>
-							<Text style={[styles.cardText, styles.cardSmallHeader]}>Оплачен до:</Text>
-							<Text style={[styles.cardText]}>1 апреля</Text>
+							<Text style={[ styles.headerText ]}>Оплачен до:</Text>
+							<Text style={[styles.text]}>1 апреля</Text>
 						</View>
 					</View>
 				</View>
@@ -60,20 +60,17 @@ const styles = StyleSheet.create({
     padding: SIZES.xLarge,
 		borderRadius: SIZES.medium,
 	},
-	cardText: {
-		color: '#333',
+	text: {
     fontSize: SIZES.large,
+		fontFamily: FONT.regular,
 	},
-	balanceHeader: {
-    // fontFamily: "DMRegular",
-	},
-	balance: {
+	balanceText: {
 		fontSize: 50,
 		paddingBottom: 40,
-		// fontFamily: "DMBold"
+		fontFamily: FONT.bold,
 	},
-	cardSmallHeader: {
-    // fontFamily: "DMRegular",
+	headerText: {
+    fontFamily: FONT.regular,
 		fontSize: SIZES.medium,
 	},
 	rateDataContainer: {

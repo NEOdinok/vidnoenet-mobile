@@ -13,11 +13,11 @@ const Stack = createStackNavigator();
 
 export default function App() {
   // const [appIsReady, setAppIsReady] = useState(false);
-  // const [fontsLoaded] = useFonts({
-  //   'DMSans-Bold': require('./assets/fonts/DMSans-Bold.ttf'),
-  //   'DMSans-Medium': require('./assets/fonts/DMSans-Medium.ttf'),
-  //   'DMSans-Reglar': require('./assets/fonts/DMSans-Regular.ttf'),
-  // });
+  const [fontsLoaded] = useFonts({
+    'DMBold': require('./assets/fonts/DMSans-Bold.ttf'),
+    'DMMedium': require('./assets/fonts/DMSans-Medium.ttf'),
+    'DMRegular': require('./assets/fonts/DMSans-Regular.ttf'),
+  });
 
   // const onLayoutRootView = useCallback(async () => {
   //   if (fontsLoaded) {
@@ -25,9 +25,9 @@ export default function App() {
   //   }
   // }, [fontsLoaded]);
 
-  // if (!fontsLoaded) {
-  //   return null;
-  // }
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <SafeAreaView style={styles.container} >
