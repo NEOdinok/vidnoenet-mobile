@@ -4,7 +4,7 @@ import {
 	Pressable,
 	Platform,
 } from "react-native";
-import { FONT, COLORS, SHADOWS, SIZES  } from "../../constants";
+import { FONT, COLORS, SPACING, SIZES } from "../../constants";
 import { StyleSheet } from "react-native";
 
 const HomeCard = () => {

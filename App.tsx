@@ -3,7 +3,7 @@ import { ScrollView, SafeAreaView, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './screens/LoginScreen';
-import HomeScreen from './screens/HomeSreen';
+import HomeScreen from './screens/HomeSreen'
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import Navigation from './navigation';

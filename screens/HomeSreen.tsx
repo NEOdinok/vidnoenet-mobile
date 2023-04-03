@@ -16,6 +16,6 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     // maxWidth: '100%',
   // }
-})
+});
  
 export default HomeScreen;
