@@ -16,7 +16,7 @@ interface Props {
 	// },
 	value: string,
 	setValue: React.Dispatch<React.SetStateAction<string>>,
-	mask?: (string|RegExp)[],
+	mask?: (string|RegExp)[] | undefined,
 	placeholder?: string|undefined,
 	keyboardType?: KeyboardTypeOptions|undefined,
 	maxLength?: number|undefined,
@@ -24,7 +24,6 @@ interface Props {
 	autoCorrect?: boolean|undefined,
 	label: string,
 }
-
 
 const PrimaryInput: React.FC<Props> = ({
 	value,

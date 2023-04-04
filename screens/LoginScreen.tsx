@@ -8,10 +8,14 @@ import {
 	Alert
 } from "react-native";
 import { SIZES, COLORS, FONT, SPACING } from "../constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PrimaryBtn from "../comps/common/PrimaryBtn";
 import PrimaryInput from "../comps/common/PrimaryInput";
 import { useNavigation } from "@react-navigation/core";
+import { loginUser } from "../utils/login";
+import { AuthContext } from "../contexts/AuthContext";
+import { useContext } from "react";
+import HTMLparser from 'fast-html-parser';
 
 const LoginScreen: React.FC = () => {
 	const [number, setNumber] = useState('');
@@ -21,12 +25,12 @@ const LoginScreen: React.FC = () => {
 	const passwordIsValid = number.length > 0;
 	const navigation = useNavigation();
 
-	const submitHandler = () => {
+	const submitHandler = async () => {
 		if (!numberIsValid || !passwordIsValid) {
 			Alert.alert('Введите номер договора и пароль');
 			return
 		} else {
-			navigation.navigate("Home" as never, {} as never);//weird
+			await loginUser(number, password);
 		}
 	}
 

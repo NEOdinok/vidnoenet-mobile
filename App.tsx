@@ -7,6 +7,7 @@ import HomeScreen from './screens/HomeSreen'
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import Navigation from './navigation';
+import AuthContextProvider from './contexts/AuthContext';
 
 const Stack = createStackNavigator();
 // SplashScreen.preventAutoHideAsync();
@@ -30,9 +31,11 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.container} >
-      <Navigation />
-    </SafeAreaView>
+    <AuthContextProvider>
+      <SafeAreaView style={styles.container} >
+        <Navigation />
+      </SafeAreaView>
+    </AuthContextProvider>
   );
 }
 
