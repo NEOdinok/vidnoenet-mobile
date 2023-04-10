@@ -2,26 +2,44 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeSreen';
 import LoginScreen from '../screens/LoginScreen';
+import { AuthContext } from '../contexts/AuthContext';
+import { useContext, useEffect } from 'react';
+import IconBtn from '../comps/common/LogOutBtn';
 
 const Stack = createNativeStackNavigator();
 
-const RootNavigator = () => {
+const AuthenticatedStack = () => (
+	<Stack.Navigator
+		screenOptions={{
+			headerShown: true,
+			headerRight: () => (
+				<IconBtn />
+			),
+		}}>
+		<Stack.Screen name="Home" component={HomeScreen} />
+	</Stack.Navigator>
+
+)
+
+const LoginStack = () => {
 	return (
 		<Stack.Navigator
 			screenOptions={{
-				headerShown: true,
+				headerShown: false,
 			}}
 		>
 			<Stack.Screen options={{headerShown: false}} name="Login" component={LoginScreen} />
-			<Stack.Screen name="Home" component={HomeScreen} />
 		</Stack.Navigator>
 	)
 }
 
 export default function Navigation() {
+	const AuthCtx = useContext(AuthContext);
+
 	return (
 		<NavigationContainer>
-			<RootNavigator />
+			{!AuthCtx.isAuthenticated && <LoginStack />}
+			{AuthCtx.isAuthenticated && <AuthenticatedStack />}
 		</NavigationContainer>
 	);
 }

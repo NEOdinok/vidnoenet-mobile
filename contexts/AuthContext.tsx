@@ -1,43 +1,57 @@
 import { ReactNode, createContext, useState } from "react"
+import { userDataType } from "../types/userDataType";
 
 export const AuthContext = createContext({
 	isAuthenticated: false,
+	isLoading: false,
 	userData: {
 		balance: '',
-		account: '',
+		accountNumber: '',
 		tariffName: '',
-		paidUntil: '',
-		htmlString: '',
+		validUntilMonth: '',
+		validUntilDate: '',
 	},
-	parseHtml: (val: string) => {},
+	toggleAuthState: () => {},
+	fillUserData: (data: userDataType) => {},
+	logUserOut: () => {},
+	toggleIsLoading: () => {},
 });
 
 interface AuthContextProps {
 	children: ReactNode,
 }
 
-interface AuthContextState {
-}
-
 const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [userData, setUserData] = useState({
 		balance: '',
-		account: '',
+		accountNumber: '',
 		tariffName: '',
-		paidUntil: '',
-		htmlString: '',
-	})
-
-	const parseHtml = (htmlString: string) => {
-		//parse htmlString
-		//find everything we need
-		//update userDAta via setUserData with new data
-	}
-
+		validUntilMonth: '',
+		validUntilDate: '',
+	});
+	const toggleAuthState = () => setIsAuthenticated(!isAuthenticated);
+	const toggleIsLoading = () => setIsLoading(!isLoading);
+	const fillUserData = (data: userDataType) => setUserData(data);
+	const logUserOut = () => {
+		setUserData({
+			balance: '',
+			accountNumber: '',
+			tariffName: '',
+			validUntilMonth: '',
+			validUntilDate: '',
+		});
+		toggleAuthState();
+	};
 	const state = {
-		isAuthenticated: false,
-		userData: userData,
-		parseHtml,
+		isAuthenticated,
+		userData,
+		fillUserData,
+		logUserOut,
+		toggleAuthState,
+		isLoading,
+		toggleIsLoading,
 	}
 
 	return (

@@ -6,8 +6,12 @@ import {
 } from "react-native";
 import { FONT, COLORS, SPACING, SIZES } from "../../constants";
 import { StyleSheet } from "react-native";
+import { AuthContext } from "../../contexts/AuthContext";
+import { useContext } from "react";
 
 const HomeCard = () => {
+	const authCtx = useContext(AuthContext);
+
 	return (
 		<View style={styles.container}>
 			<Pressable
@@ -18,17 +22,20 @@ const HomeCard = () => {
 				android_ripple={{color: '#ccc'}}
 			>
 				<View style={styles.innerContainer}>
-					<Text style={[ styles.headerText ]}>Баланс на счете:</Text>
-					<Text style={[styles.text, styles.balanceText]}>450 ₽</Text>
+					<Text style={[ styles.headerText ]}>Баланс</Text>
+					<Text style={[styles.text, styles.balanceText]}>{authCtx.userData && authCtx.userData.balance}</Text>
 
 					<View style={[styles.rateDataContainer]}>
 						<View>
 							<Text style={[ styles.headerText ]}>Тариф:</Text>
-							<Text style={[ styles.text]}>'Сотрудник'</Text>
+							<Text style={[ styles.text]}>{authCtx.userData && authCtx.userData.tariffName}</Text>
 						</View>
 						<View>
 							<Text style={[ styles.headerText ]}>Оплачен до:</Text>
-							<Text style={[styles.text]}>1 апреля</Text>
+							<Text style={[styles.text]}>
+								{authCtx.userData && authCtx.userData.validUntilMonth}{' '}
+								{authCtx.userData && authCtx.userData.validUntilDate}
+							</Text>
 						</View>
 					</View>
 				</View>

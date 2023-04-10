@@ -1,10 +1,9 @@
-import { View, ActivityIndicator, StyleSheet } from "react-native";
-import { COLORS } from "../../constants/index.еы";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 
-const LoadingOverlay = () => {
+const LoadingOverlay: React.FC = () => {
 	return (
 		<View style={styles.container}>
-			<ActivityIndicator />
+			<ActivityIndicator size='large' />
 		</View>
 	);
 }
@@ -12,11 +11,14 @@ const LoadingOverlay = () => {
 export default LoadingOverlay;
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		padding: 24,
-    backgroundColor: '#fff',
-	}
+  container: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+		backgroundColor: '#F5FCFF88',
+  },
 })

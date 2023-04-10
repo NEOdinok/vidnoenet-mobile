@@ -8,29 +8,44 @@ import {
 	Alert
 } from "react-native";
 import { SIZES, COLORS, FONT, SPACING } from "../constants";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PrimaryBtn from "../comps/common/PrimaryBtn";
 import PrimaryInput from "../comps/common/PrimaryInput";
-import { useNavigation } from "@react-navigation/core";
 import { loginUser } from "../utils/login";
+import { userDataType } from "../types/userDataType";
 import { AuthContext } from "../contexts/AuthContext";
 import { useContext } from "react";
-import HTMLparser from 'fast-html-parser';
 
 const LoginScreen: React.FC = () => {
 	const [number, setNumber] = useState('');
 	const [password, setPassword] = useState('');
-	const numberMask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, /\d/];
+	const numberMask = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/];
 	const numberIsValid = number.length > 0;
 	const passwordIsValid = number.length > 0;
-	const navigation = useNavigation();
+	const AuthCtx = useContext(AuthContext);
 
-	const submitHandler = async () => {
+	const validateLoginAndPassword = async () => {
+		AuthCtx.toggleIsLoading();
+
 		if (!numberIsValid || !passwordIsValid) {
 			Alert.alert('Введите номер договора и пароль');
-			return
+			AuthCtx.toggleIsLoading();
+			return;
 		} else {
-			await loginUser(number, password);
+			const res = await loginUser(number, password)//resolves to userDataType | undefined
+			submitHandler(res);
+		}
+	}
+
+	const submitHandler = async (res: userDataType | undefined) => {
+		if (res) {
+			AuthCtx.fillUserData(res);
+			AuthCtx.toggleAuthState();
+			AuthCtx.toggleIsLoading();
+		} else {
+			AuthCtx.toggleIsLoading();
+			Alert.alert('Пожалуйста, проверьте правильность данных');
+			return;
 		}
 	}
 
@@ -66,7 +81,7 @@ const LoginScreen: React.FC = () => {
 			</KeyboardAvoidingView>
 		
 			<View style={styles.btnContainer}>
-				<PrimaryBtn text="Войти" onPress={submitHandler}/>
+				<PrimaryBtn text="Войти" onPress={validateLoginAndPassword}/>
 			</View>
 		</View>
 		</TouchableWithoutFeedback>

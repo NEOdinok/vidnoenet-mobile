@@ -1,13 +1,22 @@
 import axios from "axios";
 import qs from "qs";
-const DOMParser = require('react-native-html-parser').DOMParser;
+import * as cheerio from 'cheerio';
+import { userDataType, LoginUserType } from "../types/userDataType";
 
-const loginUser = async (login: string, password: string) => {
+const loginUser: LoginUserType = async (login, password) => {
 	let data = qs.stringify({
 		'action_id': 'AUTH',
 		'login': login,
 		'password': password
 	});
+
+	const userData: userDataType = {
+		balance: '',
+		accountNumber: '',
+		tariffName: '',
+		validUntilMonth: '',
+		validUntilDate: '',
+	}
 
 	let config = {
 		method: 'post',
@@ -31,31 +40,32 @@ const loginUser = async (login: string, password: string) => {
 		data : data
 	};
 
-	axios.request(config)
-	.then((response) => {
+	try {
+		const response = await axios.request(config);
 		const htmlSTRING = JSON.stringify(response.data);
 		if (htmlSTRING.includes('Неправильный логин или пароль')) {
-			console.log('fail');
+			return undefined;
 		} else {
-			console.log({rawSuccess: htmlSTRING});
-			const doc = new DOMParser().parseFromString(
-				'<html><body>'+
-				'<div id="a" class="a">'+
-						'<a class="b">abcd</a>'+
-				'</div>'+
-				'<div class="b">'+
-						'<a href="aa" id="b">'+
-				'</div>'+
-				'</body></html>'
-				,'text/html'
-			);
-			console.log({parsedTest: doc});
+			const $ = cheerio.load(response.data, null, false);
+			//find the data
+			const data = $('div.cell.col-lg-3.col-md-12').find('.info-value').text();
+			//remove all spaces
+			const data1 = data.toString().replace(/\s/g,'')// remove all spaces
+			//apply regex to create an array
+			const regex = /(\D+)|(\d+)/g;
+			const result: string[] = data1.match(regex)!;
+			//fill userData obj
+			userData.balance = result[0]+result[1];
+			userData.accountNumber = result[2]+result[3]+result[4]
+			userData.tariffName = result[5].slice(1, result[5].length - 1);
+			userData.validUntilMonth= result[6];
+			userData.validUntilDate = result[7];
 		}
+	} catch (err) {
+		console.warn({ err });
+	}
 
-	})
-	.catch((error) => {
-		console.log(error);
-	});
+	return userData;
 }
 
 export {
