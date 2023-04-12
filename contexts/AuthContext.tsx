@@ -1,20 +1,20 @@
 import { ReactNode, createContext, useState } from "react"
 import { userDataType } from "../types/userDataType";
+import { clearData } from "../utils/asyncStorage";
 
 export const AuthContext = createContext({
 	isAuthenticated: false,
-	isLoading: false,
 	userData: {
 		balance: '',
 		accountNumber: '',
 		tariffName: '',
 		validUntilMonth: '',
 		validUntilDate: '',
+		sessionCookie: '',
 	},
 	toggleAuthState: () => {},
 	fillUserData: (data: userDataType) => {},
 	logUserOut: () => {},
-	toggleIsLoading: () => {},
 });
 
 interface AuthContextProps {
@@ -23,16 +23,18 @@ interface AuthContextProps {
 
 const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
 	const [userData, setUserData] = useState({
 		balance: '',
 		accountNumber: '',
 		tariffName: '',
 		validUntilMonth: '',
 		validUntilDate: '',
+		sessionCookie: '',
 	});
-	const toggleAuthState = () => setIsAuthenticated(!isAuthenticated);
-	const toggleIsLoading = () => setIsLoading(!isLoading);
+	const toggleAuthState = () => {
+		setIsAuthenticated(!isAuthenticated);
+		console.log('changed auth state: ', isAuthenticated)
+	};
 	const fillUserData = (data: userDataType) => setUserData(data);
 	const logUserOut = () => {
 		setUserData({
@@ -41,7 +43,9 @@ const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
 			tariffName: '',
 			validUntilMonth: '',
 			validUntilDate: '',
+			sessionCookie: '',
 		});
+		clearData();
 		toggleAuthState();
 	};
 	const state = {
@@ -50,8 +54,6 @@ const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
 		fillUserData,
 		logUserOut,
 		toggleAuthState,
-		isLoading,
-		toggleIsLoading,
 	}
 
 	return (

@@ -16,9 +16,8 @@ const AuthenticatedStack = () => (
 				<IconBtn />
 			),
 		}}>
-		<Stack.Screen name="Home" component={HomeScreen} />
+		<Stack.Screen name="Личный кабинет" component={HomeScreen} />
 	</Stack.Navigator>
-
 )
 
 const LoginStack = () => {
@@ -38,8 +37,8 @@ export default function Navigation() {
 
 	return (
 		<NavigationContainer>
-			{!AuthCtx.isAuthenticated && <LoginStack />}
-			{AuthCtx.isAuthenticated && <AuthenticatedStack />}
+			{!(AuthCtx.isAuthenticated == true) && <LoginStack />}
+			{(AuthCtx.isAuthenticated == true) && <AuthenticatedStack />}
 		</NavigationContainer>
 	);
 }

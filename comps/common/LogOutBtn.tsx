@@ -2,7 +2,7 @@ import { Pressable, Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import { AuthContext } from '../../contexts/AuthContext';
 import { useContext } from 'react';
-import Spinner from 'react-native-loading-spinner-overlay';
+import { clearData } from '../../utils/asyncStorage';
 
 const LogOutBtn: React.FC = () => {
 	const AuthCtx = useContext(AuthContext);

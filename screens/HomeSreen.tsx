@@ -1,7 +1,9 @@
 import { ScrollView, StyleSheet, View } from "react-native";
+import { useEffect } from "react";
 import HomeCard from "../comps/home/HomeCard";
 
 const HomeScreen: React.FC = () => {
+
 	return (
     // contentContainerStyle={styles.container}
     <View style={styles.container}>

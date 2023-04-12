@@ -4,14 +4,22 @@ type userDataType = {
 	tariffName: string;
 	validUntilMonth: string;
 	validUntilDate: string;
+	sessionCookie: string;
 }
 
-type LoginUserType = (login: string, password: string) => LoginReturnType;
+type asyncStorageDataType = {
+	login: string,
+	password: string,
+	cookie: string,
+}
 
-type LoginReturnType = Promise<userDataType|undefined>;
+type LoginUserFunctionType = (login: string, password: string) => Promise<userDataType|undefined>;
+type StoreDataFunctionType = (value: asyncStorageDataType) => Promise<void>;
+type GetDataFunctionType = () => Promise<asyncStorageDataType>;
 
 export {
 	type userDataType,
-	type LoginUserType,
-	type LoginReturnType,
+	type LoginUserFunctionType,
+	type StoreDataFunctionType,
+  type GetDataFunctionType,
 }
