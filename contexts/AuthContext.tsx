@@ -12,8 +12,8 @@ export const AuthContext = createContext({
 		validUntilDate: '',
 		sessionCookie: '',
 	},
-	toggleAuthState: () => {},
-	fillUserData: (data: userDataType) => {},
+	changeIsAuth: (value: boolean) => {},
+	fillUserData: (value: userDataType) => {},
 	logUserOut: () => {},
 });
 
@@ -31,9 +31,10 @@ const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
 		validUntilDate: '',
 		sessionCookie: '',
 	});
-	const toggleAuthState = () => {
-		setIsAuthenticated(!isAuthenticated);
-		console.log('changed auth state: ', isAuthenticated)
+
+	const changeIsAuth = (value: boolean) => {
+		setIsAuthenticated(value);
+		console.log('isAuth is set to:', value);
 	};
 	const fillUserData = (data: userDataType) => setUserData(data);
 	const logUserOut = () => {
@@ -46,14 +47,14 @@ const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
 			sessionCookie: '',
 		});
 		clearData();
-		toggleAuthState();
+		changeIsAuth(false);
 	};
 	const state = {
 		isAuthenticated,
 		userData,
 		fillUserData,
 		logUserOut,
-		toggleAuthState,
+		changeIsAuth,
 	}
 
 	return (

@@ -112,10 +112,10 @@ const LoginScreen: React.FC = () => {
 		}
 	}
 
-	const submitHandler = async (res: userDataType | undefined) => {
+	const submitHandler = (res: userDataType | undefined) => {
 		if (res) {
 			AuthCtx.fillUserData(res);
-			AuthCtx.toggleAuthState();
+			AuthCtx.changeIsAuth(true);
 		} else {
 			Alert.alert('Пожалуйста, проверьте правильность данных');
 			return;
