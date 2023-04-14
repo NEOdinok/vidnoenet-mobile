@@ -34,7 +34,7 @@ const AuthContextProvider: React.FC<AuthContextProps> = ({ children }) => {
 
 	const changeIsAuth = (value: boolean) => {
 		setIsAuthenticated(value);
-		console.log('isAuth is set to:', value);
+		console.log('[context] isAuthenticated:', value);
 	};
 	const fillUserData = (data: userDataType) => setUserData(data);
 	const logUserOut = () => {

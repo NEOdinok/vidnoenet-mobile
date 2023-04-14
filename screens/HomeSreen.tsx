@@ -1,11 +1,11 @@
 import { ScrollView, StyleSheet, View } from "react-native";
-import { useEffect } from "react";
 import HomeCard from "../comps/home/HomeCard";
+import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
+import store from "../stores/store";
 
 const HomeScreen: React.FC = () => {
-
 	return (
-    // contentContainerStyle={styles.container}
     <View style={styles.container}>
       <ScrollView >
         <HomeCard />
@@ -13,6 +13,8 @@ const HomeScreen: React.FC = () => {
     </View>
 	);
 }
+
+export default observer(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {
@@ -22,4 +24,3 @@ const styles = StyleSheet.create({
   }
 });
  
-export default HomeScreen;

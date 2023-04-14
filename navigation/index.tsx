@@ -5,6 +5,7 @@ import LoginScreen from '../screens/LoginScreen';
 import { AuthContext } from '../contexts/AuthContext';
 import { useContext, useEffect } from 'react';
 import IconBtn from '../comps/common/LogOutBtn';
+import store from '../stores/store';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,8 +38,10 @@ export default function Navigation() {
 
 	return (
 		<NavigationContainer>
-			{!(AuthCtx.isAuthenticated == true) && <LoginStack />}
-			{(AuthCtx.isAuthenticated == true) && <AuthenticatedStack />}
+			{/* {!(AuthCtx.isAuthenticated == true) && <LoginStack />}
+			{(AuthCtx.isAuthenticated == true) && <AuthenticatedStack />} */}
+			{store.isAuthenticated && <AuthenticatedStack />}
+			{!store.isAuthenticated && <LoginStack />}
 		</NavigationContainer>
 	);
 }
