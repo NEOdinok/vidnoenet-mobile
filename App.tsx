@@ -8,7 +8,6 @@ import LoadingOverlay from './comps/common/LoadingOverlay';
 import { observer } from 'mobx-react-lite';
 
 const App = () => {
-
   const [fontsLoaded] = useFonts({
     'DMBold': require('./assets/fonts/DMSans-Bold.ttf'),
     'DMMedium': require('./assets/fonts/DMSans-Medium.ttf'),
@@ -18,8 +17,6 @@ const App = () => {
   if (!fontsLoaded) {
     return null;
   }
-
-
   return (
     <>
       <AuthContextProvider>
@@ -28,7 +25,7 @@ const App = () => {
         </SafeAreaView>
       </AuthContextProvider>
 
-      {/* {store.isLoading && <LoadingOverlay />} */}
+      {store.isLoading && <LoadingOverlay />}
     </>
   );
 }

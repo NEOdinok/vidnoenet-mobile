@@ -6,6 +6,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { useContext, useEffect } from 'react';
 import IconBtn from '../comps/common/LogOutBtn';
 import store from '../stores/store';
+import { observer } from 'mobx-react-lite';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,15 +34,15 @@ const LoginStack = () => {
 	)
 }
 
-export default function Navigation() {
+const Navigation = () => {
 	const AuthCtx = useContext(AuthContext);
 
 	return (
 		<NavigationContainer>
-			{/* {!(AuthCtx.isAuthenticated == true) && <LoginStack />}
-			{(AuthCtx.isAuthenticated == true) && <AuthenticatedStack />} */}
 			{store.isAuthenticated && <AuthenticatedStack />}
 			{!store.isAuthenticated && <LoginStack />}
 		</NavigationContainer>
 	);
 }
+
+export default observer(Navigation);

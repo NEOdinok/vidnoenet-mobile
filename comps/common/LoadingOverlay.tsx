@@ -1,4 +1,5 @@
 import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { observer } from "mobx-react-lite";
 
 const LoadingOverlay: React.FC = () => {
 	return (
@@ -8,7 +9,8 @@ const LoadingOverlay: React.FC = () => {
 	);
 }
  
-export default LoadingOverlay;
+export default observer(LoadingOverlay);
+// export default LoadingOverlay;
 
 const styles = StyleSheet.create({
   container: {

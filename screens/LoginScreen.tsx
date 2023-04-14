@@ -32,6 +32,8 @@ const LoginScreen: React.FC = () => {
 
 	const validateLoginAndPassword = async () => {
 		console.log('LOADING...');
+		store.changeIsLoading(true);
+
 		if (!numberIsValid || !passwordIsValid) {
 			Alert.alert('Введите номер договора и пароль');
 			return;
@@ -42,13 +44,14 @@ const LoginScreen: React.FC = () => {
 	}
 
 	const submitHandler = (res: userDataType | undefined) => {
-		console.log('[app.tsx] runs submit')
+		console.log('[login.tsx] runs submit')
 		if (res) {
-			// AuthCtx.fillUserData(res);
-			store.fillUserData(res);
+			AuthCtx.fillUserData(res);
+			// store.fillUserData(res);// does not work
 
-			// AuthCtx.changeIsAuth(true);
 			store.changeIsAuth(true);
+
+			store.changeIsLoading(false);
 		} else {
 			Alert.alert('Пожалуйста, проверьте правильность данных');
 			return;
@@ -57,10 +60,12 @@ const LoginScreen: React.FC = () => {
 
   useEffect(() => {
     async function initial() {
-			console.log('[app.tsx] store isAuthenticated', store.isAuthenticated);
+			console.log('[login.tsx] store isAuthenticated', store.isAuthenticated);
+			console.log('[login.tsx] store userData', store.userData);
       const dataFromAsyncStorage = await getData();
-      console.log('[app.tsx]', dataFromAsyncStorage);
+      console.log('[login.tsx] got asyncStorage data', dataFromAsyncStorage);
 			if (dataFromAsyncStorage) {
+				store.changeIsLoading(true);
 				const res = await loginUser(dataFromAsyncStorage.login, dataFromAsyncStorage.password);
 				if (res) submitHandler(res);
 			}
