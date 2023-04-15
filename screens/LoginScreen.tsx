@@ -31,7 +31,6 @@ const LoginScreen: React.FC = () => {
 	const AuthCtx = useContext(AuthContext);
 
 	const validateLoginAndPassword = async () => {
-		console.log('LOADING...');
 		store.changeIsLoading(true);
 
 		if (!numberIsValid || !passwordIsValid) {
@@ -44,7 +43,6 @@ const LoginScreen: React.FC = () => {
 	}
 
 	const submitHandler = (res: userDataType | undefined) => {
-		console.log('[login.tsx] runs submit')
 		if (res) {
 			AuthCtx.fillUserData(res);
 			// store.fillUserData(res);// does not work
@@ -60,10 +58,7 @@ const LoginScreen: React.FC = () => {
 
   useEffect(() => {
     async function initial() {
-			console.log('[login.tsx] store isAuthenticated', store.isAuthenticated);
-			console.log('[login.tsx] store userData', store.userData);
       const dataFromAsyncStorage = await getData();
-      console.log('[login.tsx] got asyncStorage data', dataFromAsyncStorage);
 			if (dataFromAsyncStorage) {
 				store.changeIsLoading(true);
 				const res = await loginUser(dataFromAsyncStorage.login, dataFromAsyncStorage.password);

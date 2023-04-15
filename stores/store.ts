@@ -16,15 +16,12 @@ class Store {
 	};
 	changeIsAuth(value: boolean) {
 		this.isAuthenticated = value;
-		console.log('[store] isAuthenticated:', this.isAuthenticated);
 	};
 	changeIsLoading(value: boolean) {
 		this.isLoading = value;
-		console.log('[store] isLoading:', this.isLoading);
 	};
 	changeIsRefreshing(value: boolean) {
 		this.isRefreshing = value;
-		console.log('[store] isRefreshing:', this.isRefreshing);
 	};
 	fillUserData(data: userDataType) {
 		// this.userData = data;
