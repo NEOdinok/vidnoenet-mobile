@@ -5,6 +5,7 @@ import { clearData } from "../utils/asyncStorage";
 class Store {
 	isAuthenticated: boolean = false;
 	isLoading: boolean = false;
+	isRefreshing: boolean = false;
 	userData: userDataType = {
 		balance: '',
 		accountNumber: '',
@@ -20,6 +21,10 @@ class Store {
 	changeIsLoading(value: boolean) {
 		this.isLoading = value;
 		console.log('[store] isLoading:', this.isLoading);
+	};
+	changeIsRefreshing(value: boolean) {
+		this.isRefreshing = value;
+		console.log('[store] isRefreshing:', this.isRefreshing);
 	};
 	fillUserData(data: userDataType) {
 		// this.userData = data;

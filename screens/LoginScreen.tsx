@@ -19,7 +19,7 @@ import { getData, storeData } from "../utils/asyncStorage";
 // import * as cheerio from 'cheerio';
 import { userDataType } from "../types/userDataType";
 import { observer } from 'mobx-react-lite';
-import { loginUser } from "../utils/auth";
+import { loginUser, testOldCookie } from "../utils/auth";
 import store from "../stores/store";
 
 const LoginScreen: React.FC = () => {
@@ -67,6 +67,7 @@ const LoginScreen: React.FC = () => {
 			if (dataFromAsyncStorage) {
 				store.changeIsLoading(true);
 				const res = await loginUser(dataFromAsyncStorage.login, dataFromAsyncStorage.password);
+				// const res = await testOldCookie(dataFromAsyncStorage.login, dataFromAsyncStorage.password);
 				if (res) submitHandler(res);
 			}
 		}
