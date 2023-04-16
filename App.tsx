@@ -7,19 +7,21 @@ import store from './stores/store';
 import LoadingOverlay from './comps/common/LoadingOverlay';
 import { observer } from 'mobx-react-lite';
 import * as Notifications from 'expo-notifications';
+import { getData } from './utils/asyncStorage';
+import {StatusBar} from 'expo-status-bar'
 
 Notifications.setNotificationHandler({
   handleNotification: async () => {
+    const dataFromAsyncStorage = await getData();
     return {
       shouldPlaySound: false,
       shouldSetBadge: false,
-      shouldShowAlert: true,
+      shouldShowAlert: !!dataFromAsyncStorage,
     }
   }
 })
 
 const App = () => {
-
   useEffect(() => {
     const configurePushNotifications = async () => {
       try {
@@ -68,6 +70,7 @@ const App = () => {
         <SafeAreaView style={styles.container} >
           <Navigation />
         </SafeAreaView>
+        <StatusBar style="dark" />
       </AuthContextProvider>
 
       {store.isLoading && <LoadingOverlay />}

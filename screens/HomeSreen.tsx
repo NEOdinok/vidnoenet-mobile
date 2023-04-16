@@ -6,9 +6,9 @@ import {
 } from "react-native";
 import HomeCard from "../comps/home/HomeCard";
 import { observer } from "mobx-react-lite";
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { loginUser } from "../utils/auth";
-import { getData, storeData } from "../utils/asyncStorage";
+import { getData } from "../utils/asyncStorage";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import store from "../stores/store";
